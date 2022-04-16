@@ -3,11 +3,7 @@ import dotenv from 'dotenv';
 import express, { Express, json } from 'express';
 import { routes } from "./routes";
 
-dotenv.config();
-
 AppDataSource.initialize().then(async () => {
-    dotenv.config();
-
     const app: Express = express();
     const port = process.env.PORT;
 
