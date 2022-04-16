@@ -1,15 +1,23 @@
-import express, { Express, Request, Response } from 'express';
+import { AppDataSource } from "./data-source"
 import dotenv from 'dotenv';
+import express, { Express, json } from 'express';
+import { routes } from "./routes";
 
 dotenv.config();
 
-const app: Express = express();
-const port = process.env.PORT;
+AppDataSource.initialize().then(async () => {
+    dotenv.config();
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World from express!');
-});
+    const app: Express = express();
+    const port = process.env.PORT;
 
-app.listen(port, () => {
-    console.log(`[Server]: Server is running at https://localhost:${port}`);
-});
+    //middleware
+    app.use(json());
+    app.use('/api', routes);
+
+    //server
+    app.listen(port, () => {
+        console.log(`[Server]: Server is running at https://localhost:${port}`);
+    });
+
+}).catch(error => console.log(error));
