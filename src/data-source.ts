@@ -6,8 +6,8 @@ dotenv.config();
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    host: "localhost",
-    port: 33060,
+    host: process.env.DBHOST!,
+    port: Number(process.env.DBPORT!),
     username: process.env.DBUSER!,
     password: process.env.DBPASS!,
     database: "geodds",
