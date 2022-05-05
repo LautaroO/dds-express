@@ -2,14 +2,15 @@ import { NextFunction, Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { ErrorResponse } from "../dto/errorResponse";
 import { User } from "../entity/User";
+import { ApiRequest } from "./apiRequest";
 
 class AuthenticationHandler {
 
-    async authenticate(req: Request, res: Response, next: NextFunction) {
+    async authenticate(req: ApiRequest, res: Response, next: NextFunction) {
         const authHeader = req.headers.authorization;
 
         if (!authHeader)
-            return res.status(403).json(new ErrorResponse(403, "Missing authorization header."));
+            return res.status(401).json(new ErrorResponse(403, "Missing authorization header."));
 
         const [schema, ...rest] = authHeader.split(" ");
 
@@ -28,7 +29,7 @@ class AuthenticationHandler {
         if (!user)
             return res.status(403).json(new ErrorResponse(403, "Invalid Token."))
 
-        //req.user = user;
+        req.user = user;
 
         next();
     }

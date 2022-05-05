@@ -1,4 +1,4 @@
 export class Distance {
-    constructor(public value: string, public unidad: string) {
+    constructor(public valor: string, public unidad: string) {
     }
 }
