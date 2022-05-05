@@ -11,4 +11,7 @@ export class User {
 
     @Column()
     token: string;
+
+    @Column()
+    generatedId: number;
 }

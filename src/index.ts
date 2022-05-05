@@ -1,5 +1,4 @@
 import { AppDataSource } from "./data-source"
-import dotenv from 'dotenv';
 import express, { Express, json } from 'express';
 import { routes } from "./routes";
 
@@ -13,7 +12,7 @@ AppDataSource.initialize().then(async () => {
 
     //server
     app.listen(port, () => {
-        console.log(`[Server]: Server is running at https://localhost:${port}`);
+        console.log(`[Server]: Server is running at http://localhost:${port}`);
     });
 
 }).catch(error => console.log(error));

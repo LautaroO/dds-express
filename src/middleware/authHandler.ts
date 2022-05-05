@@ -25,8 +25,8 @@ class AuthenticationHandler {
 
         const user = await repo.findOneBy({ token: token });
 
-        // if (!user)
-        //     return res.status(403).json(new ErrorResponse(403, "Invalid Token."))
+        if (!user)
+            return res.status(403).json(new ErrorResponse(403, "Invalid Token."))
 
         //req.user = user;
 

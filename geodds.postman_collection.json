@@ -8,25 +8,13 @@
 		{
 			"name": "paises",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "token",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/paises?offset=1",
-					"protocol": "http",
+					"raw": "{{url}}/api/paises?offset=1",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"paises"
@@ -44,25 +32,13 @@
 		{
 			"name": "provincias",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "token",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/provincias?offset=1&paisId=9",
-					"protocol": "http",
+					"raw": "{{url}}/api/provincias?offset=1&paisId=9",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"provincias"
@@ -84,25 +60,13 @@
 		{
 			"name": "localidades",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "token",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/localidades?offset=1&municipioId=99",
-					"protocol": "http",
+					"raw": "{{url}}/api/localidades?offset=1&municipioId=99",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"localidades"
@@ -124,25 +88,13 @@
 		{
 			"name": "municipios",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "token",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/municipios?offset=1&provinciaId=168",
-					"protocol": "http",
+					"raw": "{{url}}/api/municipios?offset=1&provinciaId=168",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"municipios"
@@ -164,25 +116,13 @@
 		{
 			"name": "distancia",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "token",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/distancia?localidadOrigenId=1&calleOrigen=maipu&alturaOrigen=100A&localidadDestinoId=457&calleDestino=O'Higgins&alturaDestino=200",
-					"protocol": "http",
+					"raw": "{{url}}/api/distancia?localidadOrigenId=1&calleOrigen=maipu&alturaOrigen=100A&localidadDestinoId=457&calleDestino=O'Higgins&alturaDestino=200",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"distancia"
@@ -198,7 +138,7 @@
 						},
 						{
 							"key": "alturaOrigen",
-							"value": "100"
+							"value": "100A"
 						},
 						{
 							"key": "localidadDestinoId",
@@ -216,6 +156,91 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"pm.collectionVariables.set(\"token\", response.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
 		}
 	]
 }

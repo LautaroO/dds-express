@@ -11,3 +11,6 @@ Correr local:
     - DBPORT=XXXX
 - ejecutar los archivos de src/scripts
 - en consola ejecutar npm run dev
+
+
+Para usar la coleccion de postman, importar y crear un environment con variable de nombre "url" y valor "http://localhost:8000"
