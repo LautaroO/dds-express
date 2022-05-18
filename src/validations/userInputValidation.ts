@@ -1,25 +1,23 @@
 import { Request, Response, NextFunction } from "express";
 import { body, validationResult } from "express-validator";
 import { ErrorResponse } from "../dto/errorResponse";
-import { resolveMx } from "dns"
+import validate from "deep-email-validator";
+import { OutputFormat } from "deep-email-validator/dist/output/output";
 
-
-
-const resolveMxRecord = (mx: string): Promise<boolean> => {
-    return new Promise((resolve, reject) => {
-        resolveMx(mx, (error, mxs) => {
-            if (error || mxs.length === 0)
-                reject(false);
-            else
-                resolve(true);
-        });
-    });
-}
 const validateEmailDomain = async (email: string): Promise<boolean> => {
-    const splitEmail = email.split('@');
-    const mx = splitEmail[1];
+    const validation: OutputFormat = await validate({
+        email: email,
+        validateRegex: false,
+        validateMx: true,
+        validateTypo: false,
+        validateDisposable: true,
+        validateSMTP: true,
+    })
 
-    return await resolveMxRecord(mx);
+    if (!validation.valid)
+        return Promise.reject(false);
+
+    return Promise.resolve(true);
 }
 
 export const checkValidationErrors = (req: Request, res: Response, next: NextFunction) => {
